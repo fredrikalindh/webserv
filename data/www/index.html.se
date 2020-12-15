@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="se">
+
+<head>
+    <title>INDEX</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+    <div class="header">
+        <h1>Index Webserver</h1>
+        <p>Om du ser detta fungerar Webservern.</p>
+        <!-- <link href="fredrika.html"> -->
+    </div>
+    <p><a href="fredrika.html">fredrika.html</a></p>
+    <p><a href="flower.html">flower.html</a></p>
+    <p><a href="form.html">form.html</a></p>
+    <p><a href="index.php">index.php</a></p>
+</body>
+
+</html>

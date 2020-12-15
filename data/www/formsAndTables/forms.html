@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Conference Registration</title>
+    <!-- <link href="style.css" rel="stylesheet" /> -->
+    <style>
+      body {
+        width: 540px;
+        margin-left: 24px;
+        font-family: Tahoma, Arial, sans-serif;
+      }
+
+      fieldset {
+        padding: 8px 12px;
+        background-color: aliceblue;
+        margin-bottom: 8px;
+      }
+
+      fieldset label {
+        display: inline-block;
+        width: 140px;
+        margin-top: 4px;
+        margin-bottom: 4px;
+      }
+
+      .memberoption {
+        width: 160px !important;
+      }
+      p {
+        margin-top: 10px;
+        margin-bottom: 8px;
+        font-weight: bold;
+        font-size: 0.9em;
+      }
+
+      legend {
+        font-weight: bold;
+        font-size: 1.2em;
+        padding-left: 4px;
+        padding-right: 4px;
+      }
+
+      #fname,
+      #lname,
+      #login,
+      #pwd,
+      #pwd2 {
+        width: 160px;
+      }
+
+      #email {
+        width: 240px;
+      }
+      ::-webkit-input-placeholder {
+        font-style: italic;
+      }
+
+      :-moz-placeholder {
+        /* Firefox 18- */
+        font-style: italic;
+      }
+
+      ::-moz-placeholder {
+        /* Firefox 19+ */
+        font-style: italic;
+      }
+
+      :-ms-input-placeholder {
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Fill in this form to register to Visual Studio Smarts Conference</h2>
+    <!-- This is where to put form -->
+    <form action="formprocessor.html" method="GET">
+      <fieldset>
+        <legend>Personal Data</legend>
+        <label for="salutation">Salutation</label>
+        <select id="salutation" name="salutation">
+          <option label="" value="" />
+          <option label="Mr." value="Mr." selected />
+          <option label="Mrs." value="Mrs." />
+          <option label="Ms." value="Ms." />
+          <option label="Dr." value="Dr." />
+        </select>
+        <br />
+        <label for="fname">First Name:</label>
+        <input
+          id="fname"
+          type="text"
+          name="fname"
+          placeholder="John"
+          autocomplete="on"
+          autofocus
+        />
+        <br />
+        <label for="lname">Last Name:</label>
+        <input
+          id="lname"
+          type="text"
+          name="lname"
+          placeholder="Smith"
+          autocomplete="on"
+        />
+        <br />
+        <label for="email">Email:</label>
+        <input id="email" type="text" name="email" />
+        <br />
+        <p>Your Smarts Membership status</p>
+        <label class="memberoption">
+          <input type="radio" name="membership" value="none" />
+          Not a member
+        </label>
+        <label class="memberoption">
+          <input type="radio" name="membership" value="silver" />
+          Silver member
+        </label>
+        <label class="memberoption">
+          <input type="radio" name="membership" value="gold" checked />
+          Gold member
+        </label>
+        <br />
+        <a href="#">Read more about Smarts membership</a>
+      </fieldset>
+      <fieldset>
+        <legend>Your Conference Account</legend>
+        <label for="login">Login name:</label>
+        <input id="login" type="text" name="login" />
+        <br />
+        <label for="pwd">Password:</label>
+        <input id="pwd" type="password" name="pwd" />
+        <br />
+        <label for="pwd2">Confirm Password:</label>
+        <input id="pwd2" type="password" name="pwd2" />
+        <br />
+      </fieldset>
+      <fieldset>
+        <label for="car">Car: </label>
+        <select id="car">
+          <optgroup label="Japanese Cars">
+            <option value="honda">Honda</option>
+            <option value="toyota">Toyota</option>
+            <option value="lexus">Lexus</option>
+          </optgroup>
+          <optgroup label="German Cars">
+            <option value="audi">Audi</option>
+            <option value="vw">Volkswagen</option>
+            <option value="mercedes">Mercedes</option>
+          </optgroup>
+        </select>
+      </fieldset>
+      <fieldset>
+        <legend>Sessions</legend>
+        <p>What are the tracks you are interested in?</p>
+        <label>
+          <input type="checkbox" name="dev" checked />
+          Development
+        </label>
+        <label>
+          <input type="checkbox" name="alm" />
+          ALM
+        </label>
+        <label>
+          <input type="checkbox" name="aspnet" />
+          ASP.NET
+        </label>
+        <label>
+          <input type="checkbox" name="csharp" />
+          C#
+        </label>
+        <label>
+          <input type="checkbox" name="vb" />
+          Visual Basic
+        </label>
+        <label>
+          <input type="checkbox" name="sql" />
+          SQL
+        </label>
+
+        <p>What do you expect from sessions?</p>
+        <textarea id="comments" rows="3" cols="50" name="comments"> </textarea>
+      </fieldset>
+
+      <input type="submit" value="Register" />
+    </form>
+  </body>
+</html>
