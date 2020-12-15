@@ -11,8 +11,6 @@ namespace Config
 std::vector<Server> Server::configs_;
 int Server::WORKER_PROCESSES = 0;
 
-#ifdef BONUS
-
 void set_workers(Parser<Token>::iterator &it)
 {
 	if (it->tag_ == SEMI || (it + 1)->tag_ != SEMI)
@@ -81,7 +79,6 @@ void Server::set_plugin(const u_int16_t plugins)
 	PLUGINS ^= plugins;
 }
 
-#endif
 void Server::load(std::string &path)
 {
 	Mime::type("");
@@ -96,16 +93,12 @@ void Server::load(std::string &path)
 			if (it->tag_ == SERVER)
 				add(Server(base))
 					.server(++it);
-#ifdef BONUS
 			else if (it->tag_ == WORKERS)
 				set_workers(++it);
-#endif
 			else if (it->isServerDirective())
 				base.dir(it);
-#ifdef BONUS
 			else if (set_plugins(it))
 				;
-#endif
 			else
 				throw std::runtime_error("invalid directive '" + it->value_ + "' in main block on line " + Utils::String::to_string(it->line_idx_));
 		}

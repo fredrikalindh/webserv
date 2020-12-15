@@ -10,7 +10,6 @@
 #include <cstring>
 #include <string>
 
-#ifdef BONUS
 void startWorkers(Http::Server &server)
 {
 	std::vector<pid_t> workers(Config::Server::WORKER_PROCESSES);
@@ -70,14 +69,9 @@ void startWorkers(Http::Server &server)
 	for (int i = 0; i < Config::Server::WORKER_PROCESSES; ++i)
 		waitpid(workers[i], &sig, 0);
 }
-#endif
 
 int main(int ac, char **av)
 {
-#ifdef BONUS
-	std::cout << "\033[31mSTARTING WITH BONUS DEFINED. OBSERVE THAT THE 42\n"
-			  << "TESTER WILL NOT WORK DUE TO DIFFERENT ROUTING.\n\033[0m";
-#endif	// BONUS
 	Http::SocketIO io;
 	// injecting a reference the IFileIO implementation SocketIO
 	Http::Server server(io);
@@ -95,9 +89,7 @@ int main(int ac, char **av)
 	}
 	if (!Config::Server::WORKER_PROCESSES)
 		server.run();
-#ifdef BONUS
 	else
 		startWorkers(server);
-#endif
 	return EXIT_SUCCESS;
 }

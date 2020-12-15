@@ -20,10 +20,8 @@ Location const &LocationList::match(std::string const &target) const
 	{
 		if (location_[i].exactMatch(target))
 			return location_[i];
-#ifdef BONUS
 		else if (regex < 0 && location_[i].regexMatch(target))
 			regex = i;
-#endif
 		else if ((n = location_[i].matches(target)) && n > match.first)
 			match = std::make_pair(n, i);
 	}

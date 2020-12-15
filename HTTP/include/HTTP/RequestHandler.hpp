@@ -28,9 +28,7 @@ class RequestHandler
 	std::string ext_;
 
 public:
-#ifdef BONUS
 	static Mutex MUTEX;
-#endif
 	RequestHandler(Config::ServerConfig const &config,
 				   const Request &request,
 				   Response &response);

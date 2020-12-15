@@ -6,12 +6,13 @@ Project coding a non-blocking HTTP server in C++ according to the RFC specificat
 GET / HTTP/1.1
 Host: localhost
 ```
+
 ## Dependencies
-Needs cmake to compile. Run `cmake . ; make`. 
-To compile with googletests: `cmake -DTEST=ON . ; make`. 
-To compile with bonus: `cmake -DBONUS=ON . ; make`
+
+Needs cmake to compile. Run `cmake . ; make`.
 
 ## Implemented methods:
+
 - [x] GET
 - [x] HEAD
 - [x] POST
@@ -19,6 +20,7 @@ To compile with bonus: `cmake -DBONUS=ON . ; make`
 - [x] DELETE
 
 ## Implemented HTTP Headers:
+
 - [x] Accept-Charsets
 - [x] Accept-Language
 - [x] Allow
@@ -48,4 +50,3 @@ To compile with bonus: `cmake -DBONUS=ON . ; make`
   - [x] load through terminal
 - [x] Make routes work with regexp
 - [x] Configure a proxy to an other http/https server
-

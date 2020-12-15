@@ -6,9 +6,8 @@
 #include <stdint.h>
 #include <sys/select.h>
 #include <unistd.h>
-#ifdef BONUS
+
 #include <Utils/Mutex.hpp>
-#endif
 #include <iostream>
 #include <vector>
 
@@ -42,9 +41,7 @@ class Server
 	IFileIO &io_;
 
 public:
-#ifdef BONUS
 	static Mutex MUTEX_SELECT;
-#endif
 	static bool shutdown;
 	Server(IFileIO &io);
 	// Server(IFileIO *io = new SocketIO());

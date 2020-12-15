@@ -70,8 +70,6 @@ CGI::CGI(Config::ServerConfig const &config,
 	cgi_path_ = sum.str();
 	sum = cwd_ + finalPath;
 	file_path_ = sum.str();
-	// std::cout << "CGI PATH: " << cgi_path_ << std::endl;
-	// std::cout << "FILE PATH: " << file_path_ << std::endl;
 }
 
 CGI::~CGI()
@@ -111,10 +109,8 @@ bool CGI::executeCGI()
 		close(req[1]);
 		dup2(req[0], 0);
 		dup2(fd, 1);
-		// dup2(file_.handle(), 1);
 		close(req[0]);
 		close(fd);
-		// file_.Close();
 		if (execve(argv_[0], argv_, env_))
 			std::cerr << "error executing cgi " << strerror(errno) << '\n';
 		exit(EXIT_FAILURE);

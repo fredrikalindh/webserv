@@ -2,18 +2,13 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 
-#ifdef BONUS
-// #include <HTTP/LanguageEmbed.hpp>
-#include <Utils/Mutex.hpp>
-#endif
 #include <HTTP/RequestHandler.hpp>
+#include <Utils/Mutex.hpp>
 #include <Utils/Uri.hpp>
 
 namespace Http
 {
-#ifdef BONUS
 Mutex RequestHandler::MUTEX("/sem__req");
-#endif
 RequestHandler::RequestHandler(Config::ServerConfig const &config,
 							   const Request &request,
 							   Response &response) : config_(config),
@@ -22,12 +17,12 @@ RequestHandler::RequestHandler(Config::ServerConfig const &config,
 													 target_("." + request_.path)
 {
 	Uri finalPath(config.root());
-#ifndef BONUS
-	if (request_.path.length() > config.uri().length())
-		finalPath += request_.path.substr(config.uri().length());
-#else
+	// #ifndef BONUS
+	// 	if (request_.path.length() > config.uri().length())
+	// 		finalPath += request_.path.substr(config.uri().length());
+	// #else
 	finalPath += request_.path;
-#endif
+	// #endif
 	target_ = Utils::File(finalPath.str());
 }
 RequestHandler::~RequestHandler() {}
@@ -83,15 +78,10 @@ void RequestHandler::handler()
 
 void RequestHandler::handleCGI()
 {
-#ifdef BONUS
-#ifdef BONUS
 	MUTEX.lock();
-#endif
-#endif
 	CGI cgi(config_, request_, ext_);
-#ifdef BONUS
+
 	MUTEX.unlock();
-#endif
 	if (cgi.executeCGI())
 	{
 		size_t endOfHeaders = response_.headers.parseRawMessage(cgi.getBody());
@@ -119,9 +109,7 @@ void RequestHandler::handleCGI()
 }
 void RequestHandler::handlePost()
 {
-#ifdef BONUS
 	MUTEX.lock();
-#endif
 	if (!target_.Exists())
 	{
 		std::string fileName = target_.GetPath().substr(config_.root().size());
@@ -153,17 +141,14 @@ void RequestHandler::handlePost()
 		std::cout << "Failed to open " << target_.GetPath() << '\n';
 		response_.code = 500;
 	}
-#ifdef BONUS
+
 	MUTEX.unlock();
-#endif
 	std::cout << response_.code << '\n';
 }
 void RequestHandler::handlePut()
 {
 	response_.code = 204;
-#ifdef BONUS
 	MUTEX.lock();
-#endif
 	if (!target_.Exists())
 	{
 		std::string fileName = target_.GetPath().substr(config_.root().size());
@@ -194,15 +179,12 @@ void RequestHandler::handlePut()
 		std::cout << "Failed to open " << target_.GetPath() << '\n';
 		response_.code = 500;
 	}
-#ifdef BONUS
+
 	MUTEX.unlock();
-#endif
 }
 void RequestHandler::handleDelete()
 {
-#ifdef BONUS
 	MUTEX.lock();
-#endif
 	if (target_.Destroy())
 	{
 		response_.body += "File deleted\n";
@@ -212,9 +194,8 @@ void RequestHandler::handleDelete()
 	{
 		response_.code = 500;
 	}
-#ifdef BONUS
+
 	MUTEX.unlock();
-#endif
 }
 void RequestHandler::handleGet()
 {
@@ -290,7 +271,6 @@ bool RequestHandler::isCGI()
 			return true;
 		}
 	}
-	// return request_.path.find(config_.directive("cgi-bin"), 0) != std::string::npos;
 	return false;
 }
 

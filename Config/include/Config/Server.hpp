@@ -47,7 +47,6 @@ protected:
 
 public:
 	static int WORKER_PROCESSES;
-#ifdef BONUS
 	static u_int16_t PLUGINS;
 	enum AvailablePlugins
 	{
@@ -59,7 +58,6 @@ public:
 	static int get_plugin(const std::string &plugin);
 	static int set_plugin(const std::string &plugin);
 	static void set_plugin(const u_int16_t plugins);
-#endif
 	Server();
 	Server(Server const &x);
 	Server &operator=(Server const &x);
@@ -164,9 +162,7 @@ protected:
 	void set_directive(Parser<Token>::iterator &it);
 };
 
-#ifdef BONUS
 void set_workers(Parser<Token>::iterator &it);
 bool set_plugins(Parser<Token>::iterator &it);
-#endif
 }  // namespace Config
 #endif	// __SERVER_H__

@@ -222,7 +222,6 @@ TEST_F(ServerTests, matchByHostname)
 	EXPECT_EQ(0, config.matchByHost({0, 1, 2, 3}, "local"));
 	EXPECT_EQ(2, config.matchByHost({0, 1, 2, 3}, "localhost.com"));
 }
-#ifdef BONUS
 
 TEST_F(ServerTests, workers0)
 {
@@ -276,7 +275,7 @@ TEST_F(ServerTests, workersNoValue)
 	std::vector<Token>::iterator it = tokens.begin();
 	EXPECT_ANY_THROW(set_workers(++it));
 }
-#endif
+
 // TEST_F(ServerTests, plugins)
 // {
 // 	Server::PLUGINS["utf-8"] = false;

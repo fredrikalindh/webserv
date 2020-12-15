@@ -2,7 +2,6 @@
 #include <Utils/Unique_ptr.hpp>
 #include <iostream>
 
-#ifdef BONUS
 bool Encoding::Deflate(const std::string &input,
 					   std::vector<uint8_t> &output,
 					   DeflateMode mode)
@@ -118,7 +117,7 @@ bool Encoding::Inflate(const std::vector<uint8_t> &input,
 	}
 	return SUCCESS;
 }
-#endif
+
 static const std::string base64_chars =
 	"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	"abcdefghijklmnopqrstuvwxyz"

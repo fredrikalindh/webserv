@@ -98,7 +98,6 @@ TEST_F(LocationTests, location_match)
 	EXPECT_EQ(7, location_.matches("/images"));
 	EXPECT_EQ(location_.uri(), "/images");
 }
-#ifdef BONUS
 TEST_F(LocationTests, location_regexMatch)
 {
 	tokens_.push_back(Token("~", 0));
@@ -142,7 +141,6 @@ TEST_F(LocationTests, location_regexMatch2)
 	EXPECT_FALSE(location_.regexMatch("/root/myapp/test.png"));
 	EXPECT_FALSE(location_.regexMatch("/root/myapp/test.phpp"));
 }
-#endif
 TEST_F(LocationTests, location_full)
 {
 	tokens_.push_back(Token("=", 0));

@@ -4,17 +4,12 @@
 #include <sys/types.h> /* See NOTES */
 
 #include <Config/Server.hpp>
-// #include <HTTP/BufferIn.hpp>
 #include <HTTP/Server.hpp>
 #include <cstring>
 namespace Http
 {
-#ifdef BONUS
 Mutex Server::MUTEX_SELECT("/sem__select");
-#endif
-Server::Server(IFileIO &io) : fdmax(0), io_(io)
-{
-}
+Server::Server(IFileIO &io) : fdmax(0), io_(io) {}
 
 Server::~Server()
 {
@@ -62,14 +57,13 @@ void InterruptHandler(int)
 	// std::cout << "\b\b";
 	Server::shutdown = true;
 }
-#ifdef BONUS
+
 void PluginHandler(int flags)
 {
 	signal(flags, SIG_DFL); /* reset signal */
 	std::cout << "Plugin handler :" << flags << "\n";
 	Config::Server::PLUGINS ^= flags;
 }
-#endif
 bool handleInput()
 {
 	std::cout << "# handleInput\n";
@@ -80,7 +74,7 @@ bool handleInput()
 		Server::shutdown = true;
 		return false;
 	}
-#ifdef BONUS
+
 	size_t div = input.find_first_of("\t ");
 	if (div != std::string::npos)
 	{
@@ -100,7 +94,6 @@ bool handleInput()
 			}
 		}
 	}
-#endif
 	return true;
 }
 
@@ -112,12 +105,11 @@ void Server::run(int worker)
 	FD_SET(STDIN, &master_);
 	FD_ZERO(&readfds);
 	FD_ZERO(&writefds);
-#ifdef BONUS
 	signal(Config::Server::DEFLATE, PluginHandler);
 	signal(Config::Server::GZIP, PluginHandler);
 	signal(Config::Server::UTF8, PluginHandler);
-// signal(Config::Server::UNICODE, PluginHandler);
-#endif
+	// signal(Config::Server::UNICODE, PluginHandler);
+
 	signal(SIGINT, InterruptHandler);
 	while (!shutdown)
 	{
@@ -143,13 +135,9 @@ void Server::run(int worker)
 				}
 				else if (newConnection(clientSocket))
 				{
-#ifdef BONUS
 					MUTEX_SELECT.lock();
-#endif
 					onClientConnect(clientSocket);
-#ifdef BONUS
 					MUTEX_SELECT.unlock();
-#endif
 				}
 				else if (!io_.read(clientSocket))
 					onClientDisconnect(clientSocket);

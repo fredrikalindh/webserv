@@ -71,7 +71,6 @@ bool Location::exactMatch(string const &target) const
 	return (matchBy_ == Exact && uri_ == target) ||
 		   (matchBy_ == Prefix_Prefered && !target.compare(0, uri_.size(), uri_));
 }
-#ifdef BONUS
 bool Location::regexMatch(string const &target) const
 {
 	int flags = 0;
@@ -86,7 +85,6 @@ bool Location::regexMatch(string const &target) const
 	regfree(&regex);
 	return ret == 0;
 }
-#endif
 size_t Location::matches(string const &target) const
 {
 	size_t n(uri_.size());
@@ -200,7 +198,6 @@ bool Location::dir(Parser<Token>::iterator &it)
 
 void Location::location(Parser<Token>::iterator &it)
 {
-#ifdef BONUS
 	if (it->value_ == "~" || it->value_ == "~*")
 	{
 		matchBy_ = it->value_ == "~" ? Regex : Regex_CaseInsensitive;
@@ -215,19 +212,13 @@ void Location::location(Parser<Token>::iterator &it)
 		matchBy_ = Prefix_Prefered;
 		++it;
 	}
-#endif
 	if (it->value_ == "=")
 	{
 		matchBy_ = Exact;
 		++it;
 	}
-#ifdef BONUS
 	if (matchBy_ != Regex && matchBy_ != Regex_CaseInsensitive && (it->value_)[0] != '/')
 		throw runtime_error("invalid uri '" + it->value_ + "' in location block on line " + Utils::String::to_string(it->line_idx_));
-#else
-	if (it->value_[0] != '/')
-		throw runtime_error("bad uri in location definition on line " + Utils::String::to_string(it->line_idx_));
-#endif
 	uri_ = it++->value_;
 	if (it->tag_ != O_BRACKET)
 		throw runtime_error("location definition on line " + Utils::String::to_string(it->line_idx_));

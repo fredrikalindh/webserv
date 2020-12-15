@@ -13,7 +13,6 @@ namespace Http
  * This function forwards a request to another server on the given destination
  * and returns the processed response.
 */
-#ifdef BONUS
 std::string forwardProxy(std::string dest, const Request &request)
 {
 	struct timeval tv = {2, 0};
@@ -121,23 +120,18 @@ void applyEncodings(const std::vector<std::string> &acceptableEncodings, Respons
 		}
 	}
 }
-#endif
 
 std::string handleMessage(const Request &request)
 {
 	Response response;
 	Config::ServerConfig config(request.port, request.headers.value("Host"), request.path);
-#ifdef BONUS
 	if (!config.directive("proxy").empty())
 		return forwardProxy(config.directive("proxy"), request);
-#endif
 	RequestHandler handleRequest(config, request, response);
 	handleRequest.build();
-#ifdef BONUS
 	if (request.headers.hasHeader("Accept-Encoding") &&
 		Config::Server::PLUGINS)
 		applyEncodings(request.headers.tokens("Accept-Encoding"), response);
-#endif
 	return response.genereateRawMessage();
 }
 

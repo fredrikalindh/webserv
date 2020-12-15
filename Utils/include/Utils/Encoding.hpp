@@ -2,23 +2,20 @@
 #define __ENCODING_H__
 
 #include <stdint.h>
-#ifdef BONUS
 #include <zlib.h>
-#endif
+
 #include <string>
 #include <vector>
 
 class Encoding
 {
-#ifdef BONUS
 	static const size_t DEFLATE_BUFFER_INCREMENT = 256;
 	static const size_t INFLATE_BUFFER_SIZE = 256;
 	typedef int (*endft)(z_stream *);
-#endif
+
 public:
 	static const bool FAILURE = true;
 	static const bool SUCCESS = false;
-#ifdef BONUS
 	/**
 	 * This is used to pick a compression mode for the Deflate method.
 	 */
@@ -80,10 +77,6 @@ public:
 	static bool Inflate(const std::vector<uint8_t> &input,
 						std::string &output,
 						DeflateMode mode = DEFLATE);
-	// static bool Inflate(const std::vector<uint8_t> &input,
-	// 					std::string &output,
-	// 					DeflateMode mode = DEFLATE);
-#endif
 	/**
 	 * This method decodes the given string from base 64.
 	 */

@@ -1,7 +1,6 @@
 #include <limits.h>
 
 #include <HTTP/Headers.hpp>
-// #include <sstream>
 namespace
 {
 static bool validHeaderName(const std::string &name)

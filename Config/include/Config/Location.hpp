@@ -1,9 +1,8 @@
 #ifndef __LOCATION_H__
 #define __LOCATION_H__
 
-#ifdef BONUS
 #include <regex.h>
-#endif
+
 #include <Utils/Uri.hpp>
 #include <map>
 #include <string>
@@ -119,9 +118,7 @@ public:
      *      also means the route only supports exact matches. 
      */
 	bool exactMatch(string const &target) const;
-#ifdef BONUS
 	bool regexMatch(string const &target) const;
-#endif
 	/**
      * This method checks if the prefix of the target matches the uri 
      * in the location and returns the length of the match.
